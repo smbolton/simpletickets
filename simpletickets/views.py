@@ -76,8 +76,12 @@ class Login_required_mixin(View):
 
 
 class TicketMixin(object):
-    staff_group = Group.objects.get_or_create(name=ST_STAFF_GNAME)[0]
-    admin_group = Group.objects.get_or_create(name=ST_ADMIN_GNAME)[0]
+    staff_group = None
+    admin_group = None
+
+    def __init__(self):
+        self.staff_group = Group.objects.get_or_create(name=ST_STAFF_GNAME)[0]
+        self.admin_group = Group.objects.get_or_create(name=ST_ADMIN_GNAME)[0]
 
     def get_queryset(self):
         user = self.request.user
